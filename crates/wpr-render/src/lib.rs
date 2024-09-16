@@ -13,6 +13,8 @@ use winit::{
 #[cfg(target_arch = "wasm32")]
 use wasm_bindgen::prelude::*;
 
+const MAX_SURFACE_SIZE: u32 = 512;
+
 struct State {
     surface: wgpu::Surface<'static>,
     device: wgpu::Device,
@@ -31,7 +33,6 @@ impl State {
         let window = Arc::new(window);
 
         // The instance is a handle to our GPU
-        // BackendBit::PRIMARY => Vulkan + Metal + DX12 + Browser WebGPU
         let instance = wgpu::Instance::new(wgpu::InstanceDescriptor {
             #[cfg(not(target_arch = "wasm32"))]
             backends: wgpu::Backends::PRIMARY,
@@ -56,8 +57,6 @@ impl State {
                 &wgpu::DeviceDescriptor {
                     label: None,
                     required_features: wgpu::Features::empty(),
-                    // WebGL doesn't support all of wgpu's features, so if
-                    // we're building for the web we'll have to disable some.
                     required_limits: if cfg!(target_arch = "wasm32") {
                         wgpu::Limits::downlevel_webgl2_defaults()
                     } else {
@@ -110,8 +109,8 @@ impl State {
     pub fn resize(&mut self, new_size: winit::dpi::PhysicalSize<u32>) {
         if new_size.width > 0 && new_size.height > 0 {
             self.size = new_size;
-            self.config.width = new_size.width;
-            self.config.height = new_size.height;
+            self.config.width = new_size.width.min(MAX_SURFACE_SIZE);
+            self.config.height = new_size.height.min(MAX_SURFACE_SIZE);
             self.surface.configure(&self.device, &self.config);
         }
     }
