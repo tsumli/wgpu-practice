@@ -1,4 +1,4 @@
-use wpr_render::run;
+use wpr_render::run::run;
 
 fn main() {
     run();
