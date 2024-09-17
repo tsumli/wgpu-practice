@@ -14,6 +14,7 @@ log = "0.4.22"
 wgpu = "22.1.0"
 winit = { version = "0.30.5", features = ["rwh_05"] }
 pollster = "0.3.0"
+bytemuck = { version = "1.18.0", features = ["derive"] }
 
 [target.'cfg(target_arch = "wasm32")'.dependencies]
 console_error_panic_hook = "0.1.6"

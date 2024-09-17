@@ -6,8 +6,7 @@
   "scripts": {
     "dev": "vite",
     "build": "run-p type-check \"build-only {@}\" --",
-    "build:wasm": "cargo build --target wasm32-unknown-unknown --manifest-path ../crates/wpr-render/Cargo.toml --no-default-features --release",
-    "postprocess:wasm": "wasm-bindgen ../target/wasm32-unknown-unknown/release/wpr_render.wasm --target web --out-dir src/wasm",
+    "build:wasm": "cargo build --target wasm32-unknown-unknown --manifest-path ../crates/wpr-render/Cargo.toml --no-default-features --release && wasm-bindgen ../target/wasm32-unknown-unknown/release/wpr_render.wasm --target web --out-dir src/wasm",
     "preview": "vite preview",
     "test:unit": "vitest",
     "build-only": "vite build",

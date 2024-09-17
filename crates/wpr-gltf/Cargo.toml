@@ -4,3 +4,12 @@ version = "0.1.0"
 edition = "2021"
 
 [dependencies]
+anyhow = "1.0.89"
+gltf = { version = "1.4.1", features = ["extras", "names"] }
+log = "0.4.22"
+wpr-utils = { version = "0.1.0", path = "../wpr-utils" }
+
+[build-dependencies]
+anyhow = "1.0.89"
+git2 = "0.19.0"
+wpr-utils = { version = "0.1.0", path = "../wpr-utils" }
